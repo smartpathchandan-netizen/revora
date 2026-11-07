@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>REVORA — Verified rewards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--card:#111110;--line:#2a261c;--gold:#c8a24a;--gold2:#e6c97a;--white:#f5f3ee;--mut:#9a9588;--bad:#d9685b;--ok:#6fbf8b}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--white);font:400 16px/1.5 Manrope,system-ui,sans-serif;min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+h1,h2,.logo,.big{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:.01em}
+a{color:var(--gold2)}
+.boot{display:grid;place-items:center;height:100vh;font:700 28px "Cormorant Garamond",serif;color:var(--gold);letter-spacing:.3em}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 96px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px;max-width:560px;margin:0 auto}
+.logo{font-size:26px;color:var(--gold);letter-spacing:.22em}
+.btn,button{font:700 15px Manrope,sans-serif;border:0;border-radius:10px;padding:13px 18px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1405;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
+.btn:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--white);outline-offset:2px}
+button.ghost,.ghost{background:none;border:1px solid var(--line);color:var(--white)}
+button.sm{padding:8px 12px;font-size:13px}
+button.bad{background:none;border:1px solid var(--bad);color:var(--bad)}
+.hero{max-width:560px;margin:0 auto;padding:48px 20px 40px}
+.hero h1{font-size:clamp(44px,13vw,72px);line-height:1;margin-bottom:20px}
+.hero p{color:var(--mut);margin-bottom:28px;max-width:44ch}
+.hero small{display:block;margin-top:18px;color:var(--mut);font-size:13px}
+.steps{list-style:none;padding:0 20px 60px;max-width:560px;margin:0 auto;counter-reset:s}
+.steps li{counter-increment:s;padding:16px 0 16px 48px;border-top:1px solid var(--line);position:relative}
+.steps li:before{content:counter(s);position:absolute;left:0;top:14px;font:700 28px "Cormorant Garamond",serif;color:var(--gold)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.auth{max-width:420px;margin:0 auto;padding:24px 20px}
+.auth h2{font-size:36px;margin-bottom:18px}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 5px}
+input,textarea{width:100%;background:#0b0b0a;border:1px solid var(--line);color:var(--white);border-radius:10px;padding:13px;font:inherit}
+textarea{min-height:90px}
+.auth .btn,.auth button.btn{width:100%;margin-top:18px}
+.links{display:flex;justify-content:space-between;margin-top:16px;font-size:14px}
+.bal{border-color:var(--gold);background:linear-gradient(160deg,#17130a,#0b0b0a)}
+.bal span,.tile span{color:var(--mut);font-size:13px}
+.big{font-size:52px;color:var(--gold2);line-height:1.1}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.tile b{display:block;font-size:17px;margin-top:2px}
+h3{font-size:15px;margin:22px 0 10px;color:var(--gold)}
+.offer img{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:12px;background:#1a1810}
+.offer h4{font-size:18px}
+.rw{float:right;background:var(--gold);color:#1a1405;border-radius:20px;padding:2px 12px;font-weight:700;font-size:14px}
+.offer p{color:var(--mut);font-size:14px;margin:6px 0}
+.offer .el{color:var(--white);font-size:13px;border-left:2px solid var(--gold);padding-left:10px;margin:8px 0 14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1}
+.li{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-top:1px solid var(--line);font-size:14px}
+.li small{color:var(--mut);display:block}
+.chip{font-size:12px;border-radius:20px;padding:2px 10px;border:1px solid var(--line);white-space:nowrap}
+.pending{color:var(--gold2)}.approved,.pos{color:var(--ok)}.rejected,.neg{color:var(--bad)}
+nav{position:fixed;left:0;right:0;bottom:0;background:#0a0a09;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom))}
+nav a{color:var(--mut);text-decoration:none;font-size:12px;padding:6px 10px;border-radius:8px}
+nav a.on{color:var(--gold2)}
+.empty{color:var(--mut);text-align:center;padding:24px 0}
+dialog{background:var(--card);color:var(--white);border:1px solid var(--gold);border-radius:14px;padding:18px;width:min(92vw,420px)}
+dialog::backdrop{background:#000b}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;background:var(--white);color:#111;padding:11px 18px;border-radius:10px;font-weight:600;font-size:14px;z-index:99;max-width:90vw}
+@media (prefers-reduced-motion:no-preference){.hero h1{animation:in .7s ease both}@keyframes in{from{opacity:0;transform:translateY(10px)}}}
+
+</style>
+</head><body>
+<div id="app"><p class="boot">REVORA</p></div>
+<dialog id="dlg"></dialog>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,sendPasswordResetEmail,sendEmailVerification,updateProfile} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,addDoc,updateDoc,deleteDoc,collection,query,where,getDocs,serverTimestamp,increment,runTransaction} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig={apiKey:"AIzaSyCvpKSwFHMlS-v0WVpcaJuSWoxoc5BrP2k",authDomain:"revora-56a91.firebaseapp.com",projectId:"revora-56a91",storageBucket:"revora-56a91.firebasestorage.app",messagingSenderId:"126780941133",appId:"1:126780941133:web:4a83638d1940c54f20cd04"};
+const fb=initializeApp(firebaseConfig),auth=getAuth(fb),db=getFirestore(fb);
+
+const $=s=>document.querySelector(s),app=$('#app'),dlg=$('#dlg');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+Number(n||0).toLocaleString('en-IN');
+const https=u=>/^https:\/\//.test(u||'')?esc(u):'';
+const dt=t=>t?.toDate?t.toDate().toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
+const sortNew=a=>a.sort((x,y)=>(y.createdAt?.seconds||0)-(x.createdAt?.seconds||0));
+const list=async(c,...w)=>(await getDocs(w.length?query(collection(db,c),...w):collection(db,c))).docs.map(d=>({id:d.id,...d.data()}));
+const AUTH_ERR={'auth/invalid-credential':'Email or password is wrong.','auth/email-already-in-use':'This email is already registered. Try signing in.','auth/weak-password':'Use a password with at least 6 characters.','auth/invalid-email':'Enter a valid email address.','auth/too-many-requests':'Too many attempts. Try again in a few minutes.'};
+const err=e=>AUTH_ERR[e.code]||(e.code==='permission-denied'?'Not allowed. Check Firestore rules are published.':e.message||'Something went wrong. Try again.');
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),3500)}
+
+let S={user:null,admin:false,ready:false};
+onAuthStateChanged(auth,async u=>{S.user=u;S.admin=false;if(u){try{S.admin=(await getDoc(doc(db,'admins',u.uid))).exists()}catch(e){}}S.ready=true;route()});
+addEventListener('hashchange',route);
+
+async function route(){
+ if(!S.ready)return;
+ const r=(location.hash||'#/').slice(2);
+ if(['home','offers','history','withdraw','admin'].includes(r)&&!S.user){location.hash='#/login';return}
+ if(['login','register'].includes(r)&&S.user){location.hash='#/home';return}
+ if(r==='admin'&&!S.admin){location.hash='#/home';return}
+ try{
+  if(r==='login'||r==='register')app.innerHTML=authView(r);
+  else if(S.user&&['home','offers','history','withdraw','admin'].includes(r)){app.innerHTML=shell(r,'<p class="empty">Loading…</p>');const body=await({home,offers,history,withdraw,admin}[r])();app.innerHTML=shell(r,body)}
+  else app.innerHTML=landing();
+ }catch(e){app.innerHTML=shell(r,`<p class="empty">${esc(err(e))}</p>`)}
+ scrollTo(0,0);
+}
+
+const landing=()=>`<header class="top"><b class="logo">REVORA</b><a class="btn ghost" href="#/${S.user?'home':'login'}">${S.user?'Open app':'Sign in'}</a></header>
+<main class="hero"><h1>Complete offers.<br>Earn verified rewards.</h1><p>Pick an offer, finish the task, submit proof. Once REVORA approves it, the reward lands in your wallet.</p><a class="btn" href="#/register">Create free account</a><small>Rewards depend on offer eligibility and approval. Earnings are not guaranteed.</small></main>
+<ol class="steps"><li>Choose an offer that matches its eligibility.</li><li>Complete it and submit your proof.</li><li>After approval, the reward is added to your balance and you can request a withdrawal.</li></ol>`;
+
+const authView=m=>{const reg=m==='register';return `<header class="top"><a class="logo" href="#/" style="text-decoration:none">REVORA</a></header>
+<form class="auth" data-form="${m}"><h2>${reg?'Create your account':'Welcome back'}</h2>
+${reg?'<label for="n">Full name</label><input id="n" name="name" required maxlength="60" autocomplete="name">':''}
+<label for="e">Email</label><input id="e" name="email" type="email" required autocomplete="email">
+<label for="p">Password</label><input id="p" name="pass" type="password" required minlength="6" autocomplete="${reg?'new':'current'}-password">
+<button class="btn">${reg?'Create account':'Sign in'}</button>
+<div class="links">${reg?'<a href="#/login">Already have an account?</a>':'<a href="#/register">Create account</a><a href="#" data-act="reset">Forgot password?</a>'}</div></form>`};
+
+const shell=(r,body)=>`<header class="top"><b class="logo">REVORA</b><button class="ghost sm" data-act="logout">Sign out</button></header><div class="wrap">${body}</div>
+<nav>${[['home','Wallet'],['offers','Offers'],['history','Activity'],['withdraw','Withdraw'],...(S.admin?[['admin','Admin']]:[])].map(([k,l])=>`<a href="#/${k}" class="${k===r?'on':''}">${l}</a>`).join('')}</nav>`;
+
+const chip=s=>`<span class="chip ${esc(s)}">${esc(s)}</span>`;
+
+async function home(){
+ const [w,c]=await Promise.all([getDoc(doc(db,'wallets',S.user.uid)),list('claims',where('uid','==',S.user.uid))]);
+ const d=w.exists()?w.data():{},pend=c.filter(x=>x.status==='pending').reduce((a,x)=>a+(x.reward||0),0);
+ return `<p style="color:var(--mut)">Hello, ${esc(S.user.displayName||S.user.email)}</p>
+<div class="card bal"><span>Available balance</span><div class="big">${inr(d.available)}</div></div>
+<div class="grid"><div class="tile"><span>Pending</span><b>${inr(pend)}</b></div><div class="tile"><span>Lifetime</span><b>${inr(d.lifetime)}</b></div><div class="tile"><span>Withdrawn</span><b>${inr(d.withdrawn)}</b></div></div>
+<a class="btn" style="width:100%;margin-top:18px" href="#/offers">Browse offers</a>`;
+}
+
+async function offers(){
+ const [o,c]=await Promise.all([list('offers'),list('claims',where('uid','==',S.user.uid))]);
+ const mine=Object.fromEntries(c.map(x=>[x.offerId,x])),act=o.filter(x=>x.active);
+ if(!act.length)return '<p class="empty">No offers are live right now. Check back soon.</p>';
+ return act.map(x=>{const m=mine[x.id];return `<article class="card offer">${https(x.imageUrl)?`<img src="${https(x.imageUrl)}" alt="" loading="lazy">`:''}
+<span class="rw">${inr(x.reward)}</span><h4>${esc(x.title)}</h4><p>${esc(x.description)}</p><div class="el">${esc(x.eligibility)}</div>
+${m?`<div class="li" style="border:0;padding:0"><span>Your submission</span>${chip(m.status)}</div>`:`<div class="row"><a class="btn" href="${https(x.link)||'#'}" target="_blank" rel="noopener">Start</a><button class="ghost" data-act="proof" data-id="${esc(x.id)}">Submit proof</button></div>`}</article>`}).join('');
+}
+
+async function history(){
+ const u=S.user.uid,[c,l]=await Promise.all([list('claims',where('uid','==',u)),list('ledger',where('uid','==',u))]);
+ const rows=(a,f)=>a.length?sortNew(a).map(f).join(''):'<p class="empty">Nothing yet.</p>';
+ return `<h3>Submissions</h3>${rows(c,x=>`<div class="li"><div>${esc(x.offerTitle)}<small>${dt(x.createdAt)} · ${inr(x.reward)}</small></div>${chip(x.status)}</div>`)}
+<h3>Wallet entries</h3>${rows(l,x=>`<div class="li"><div>${esc(x.note)}<small>${dt(x.createdAt)}</small></div><b class="${x.amount<0?'neg':'pos'}">${x.amount<0?'−':'+'}${inr(Math.abs(x.amount))}</b></div>`)}`;
+}
+
+async function withdraw(){
+ const u=S.user.uid,[w,s,ws]=await Promise.all([getDoc(doc(db,'wallets',u)),getDoc(doc(db,'settings','config')),list('withdrawals',where('uid','==',u))]);
+ const av=w.exists()?w.data().available||0:0,min=s.exists()?s.data().minWithdraw:null;
+ return `<div class="card bal"><span>Available to withdraw</span><div class="big">${inr(av)}</div></div>
+${min==null?'<p class="empty">Withdrawals are not open yet.</p>':`<form class="card" data-form="withdraw"><span style="color:var(--mut)">Minimum withdrawal: ${inr(min)}</span>
+<label for="a">Amount (₹)</label><input id="a" name="amount" type="number" min="${min}" max="${av}" step="1" required>
+<label for="u">UPI ID</label><input id="u" name="upi" required placeholder="name@bank" autocomplete="off">
+<button class="btn" style="width:100%;margin-top:16px">Request withdrawal</button></form>`}
+<h3>Your requests</h3>${ws.length?sortNew(ws).map(x=>`<div class="li"><div>${inr(x.amount)}<small>${dt(x.createdAt)} · ${esc(x.upi)}</small></div>${chip(x.status)}</div>`).join(''):'<p class="empty">No requests yet.</p>'}`;
+}
+
+async function admin(){
+ const [o,c,w,s]=await Promise.all([list('offers'),list('claims',where('status','==','pending')),list('withdrawals',where('status','==','pending')),getDoc(doc(db,'settings','config'))]);
+ return `<h3>Minimum withdrawal</h3><form class="card row" data-form="min"><input name="min" type="number" min="1" required value="${s.exists()?esc(s.data().minWithdraw):''}" placeholder="₹ amount" style="flex:2"><button>Save</button></form>
+<h3>Pending submissions (${c.length})</h3>${c.length?c.map(x=>`<div class="card"><b>${esc(x.offerTitle)}</b> · ${inr(x.reward)}<small style="display:block;color:var(--mut)">${esc(x.email)}</small><p style="margin:8px 0;white-space:pre-wrap;word-break:break-word">${esc(x.proof)}</p><div class="row"><button class="sm" data-act="okc" data-id="${esc(x.id)}">Approve</button><button class="sm bad" data-act="noc" data-id="${esc(x.id)}">Reject</button></div></div>`).join(''):'<p class="empty">All clear.</p>'}
+<h3>Pending withdrawals (${w.length})</h3>${w.length?w.map(x=>`<div class="card"><b>${inr(x.amount)}</b> to <b>${esc(x.upi)}</b><small style="display:block;color:var(--mut)">${esc(x.email)} · pay by UPI first, then approve</small><div class="row" style="margin-top:8px"><button class="sm" data-act="okw" data-id="${esc(x.id)}">Mark paid</button><button class="sm bad" data-act="now" data-id="${esc(x.id)}">Reject</button></div></div>`).join(''):'<p class="empty">None.</p>'}
+<h3>Add offer</h3><form class="card" data-form="offer"><label>Title</label><input name="title" required maxlength="80"><label>Reward (₹)</label><input name="reward" type="number" min="1" required><label>Description</label><textarea name="description" required maxlength="400"></textarea><label>Eligibility</label><input name="eligibility" required maxlength="200"><label>Image URL (https)</label><input name="imageUrl" type="url" placeholder="https://…"><label>Offer link (https)</label><input name="link" type="url" required placeholder="https://…"><button class="btn" style="width:100%;margin-top:16px">Publish offer</button></form>
+<h3>All offers</h3>${o.map(x=>`<div class="li"><div>${esc(x.title)}<small>${inr(x.reward)} · ${x.active?'live':'paused'}</small></div><div class="row"><button class="sm ghost" data-act="tog" data-id="${esc(x.id)}" data-on="${x.active?1:0}">${x.active?'Pause':'Go live'}</button><button class="sm bad" data-act="del" data-id="${esc(x.id)}">Delete</button></div></div>`).join('')||'<p class="empty">No offers yet.</p>'}`;
+}
+
+const ledger=(t,uid,amount,type,note)=>t.set(doc(collection(db,'ledger')),{uid,amount,type,note,createdAt:serverTimestamp()});
+const review=(col,id,st)=>runTransaction(db,async t=>{
+ const ref=doc(db,col,id),s=await t.get(ref);if(!s.exists()||s.data().status!=='pending')throw new Error('Already processed.');
+ const d=s.data();t.update(ref,{status:st,reviewedAt:serverTimestamp()});if(st!=='approved')return;
+ const wr=doc(db,'wallets',d.uid);
+ if(col==='claims'){t.set(wr,{available:increment(d.reward),lifetime:increment(d.reward)},{merge:true});ledger(t,d.uid,d.reward,'reward',d.offerTitle)}
+ else{const w=await t.get(wr);if((w.data()?.available||0)<d.amount)throw new Error('User balance is lower than this request.');t.update(wr,{available:increment(-d.amount),withdrawn:increment(d.amount)});ledger(t,d.uid,-d.amount,'withdrawal','Withdrawal to '+d.upi)}
+});
+
+document.addEventListener('submit',async e=>{
+ const f=e.target.closest('form[data-form]');if(!f)return;e.preventDefault();
+ const k=f.dataset.form,v=Object.fromEntries(new FormData(f)),b=f.querySelector('button');b.disabled=true;
+ try{
+  if(k==='register'){const c=await createUserWithEmailAndPassword(auth,v.email,v.pass);await updateProfile(c.user,{displayName:v.name.trim()});await setDoc(doc(db,'users',c.user.uid),{name:v.name.trim(),email:v.email,createdAt:serverTimestamp()});sendEmailVerification(c.user).catch(()=>{});S.user=auth.currentUser}
+  else if(k==='login')await signInWithEmailAndPassword(auth,v.email,v.pass);
+  else if(k==='withdraw'){const amt=Math.floor(+v.amount);if(!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(v.upi.trim()))throw new Error('Enter a valid UPI ID, like name@bank.');await addDoc(collection(db,'withdrawals'),{uid:S.user.uid,email:S.user.email,amount:amt,upi:v.upi.trim(),status:'pending',createdAt:serverTimestamp()});toast('Withdrawal requested');route()}
+  else if(k==='min'){await setDoc(doc(db,'settings','config'),{minWithdraw:Math.floor(+v.min)});toast('Saved')}
+  else if(k==='offer'){await addDoc(collection(db,'offers'),{title:v.title.trim(),reward:Math.floor(+v.reward),description:v.description.trim(),eligibility:v.eligibility.trim(),imageUrl:v.imageUrl.trim(),link:v.link.trim(),active:true,createdAt:serverTimestamp()});toast('Offer published');route()}
+ }catch(x){toast(err(x))}
+ b.disabled=false;
+});
+
+document.addEventListener('click',async e=>{
+ const el=e.target.closest('[data-act]');if(!el)return;const a=el.dataset.act,id=el.dataset.id;
+ try{
+  if(a==='logout'){await signOut(auth);location.hash='#/'}
+  else if(a==='reset'){e.preventDefault();const em=$('#e').value;if(!em)return toast('Type your email first.');await sendPasswordResetEmail(auth,em);toast('Reset link sent to your email')}
+  else if(a==='proof'){const o=await getDoc(doc(db,'offers',id)),x=o.data();dlg.innerHTML=`<form method="dialog" id="pf"><h4>${esc(x.title)}</h4><label for="pr">Proof of completion</label><textarea id="pr" required maxlength="500" placeholder="Username, order ID or a screenshot link"></textarea><div class="row" style="margin-top:14px"><button type="button" class="ghost" data-act="close">Cancel</button><button type="submit">Submit</button></div></form>`;dlg.showModal();$('#pf').onsubmit=async ev=>{ev.preventDefault();try{await setDoc(doc(db,'claims',S.user.uid+'_'+id),{uid:S.user.uid,email:S.user.email,offerId:id,offerTitle:x.title,reward:x.reward,proof:$('#pr').value.trim(),status:'pending',createdAt:serverTimestamp()});dlg.close();toast('Submitted for review');route()}catch(z){toast(err(z))}}}
+  else if(a==='close')dlg.close();
+  else if(a==='okc'||a==='noc'){await review('claims',id,a==='okc'?'approved':'rejected');toast('Done');route()}
+  else if(a==='okw'||a==='now'){await review('withdrawals',id,a==='okw'?'approved':'rejected');toast('Done');route()}
+  else if(a==='tog'){await updateDoc(doc(db,'offers',id),{active:el.dataset.on!=='1'});route()}
+  else if(a==='del'&&confirm('Delete this offer?')){await deleteDoc(doc(db,'offers',id));route()}
+ }catch(x){toast(err(x))}
+});
+
+</script>
+</body></html>
